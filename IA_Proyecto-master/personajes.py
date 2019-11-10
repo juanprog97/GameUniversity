@@ -1,5 +1,6 @@
 import pygame as pg
 from opciones import *
+from logica import *
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -52,21 +53,11 @@ class Enemy(pg.sprite.Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
 
-    def collide_with_walls(self, dx=0, dy=0):
-        for wall in self.game.walls:
-            if wall.x == self.x + dx and wall.y == self.y + dy:
-                return True
-        return False
-
-    def movimiento(self, dx=0, dy=0):
-        if not self.collide_with_walls(dx, dy):
-            self.x += dx
-            self.y += dy
+    def move(self):
+        self.x, self.y = pathFinding(self.x,self.y, self.game.player.x, self.game.player.y)
 
     def update(self):
-        self.movimiento(dx=0.1)
-        self.rect.x = self.x * TILESIZE
-        self.rect.y = self.y * TILESIZE
+        self.move()
 
 
 class EnemyPathFinding(pg.sprite.Sprite):
