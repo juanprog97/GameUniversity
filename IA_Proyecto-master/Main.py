@@ -25,6 +25,7 @@ class Game:
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
+                    MAPA[row][col] = 1
                     Wall(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
