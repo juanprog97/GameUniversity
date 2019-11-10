@@ -2,6 +2,7 @@ import pygame as pg
 from opciones import *
 from logica import *
 
+
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites
@@ -40,9 +41,10 @@ class Player(pg.sprite.Sprite):
         self.rect.x = self.x * TILESIZE
         self.rect.y = self.y * TILESIZE
 
+
 class Enemy(pg.sprite.Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.walls
+        self.groups = game.all_sprites, game.enemies
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
@@ -50,33 +52,31 @@ class Enemy(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
+        self.tempx, self.tempy = -1, -1
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+        self.path = []
+        self.cont = 0
 
     def move(self):
-        self.x, self.y = pathFinding(self.x,self.y, self.game.player.x, self.game.player.y)
+        if self.tempx != self.game.player.x or self.tempy != self.game.player.y:
+            self.cont = 0
+            self.tempx, self.tempy = self.game.player.x, self.game.player.y
+            self.path = astar((self.x, self.y), (self.game.player.x, self.game.player.y))
+            self.path = self.path + [(self.x, self.y)]
+            self.path = self.path[::-1]
+        elif self.path and self.cont < len(self.path):
+            self.x, self.y = self.path[self.cont][0], self.path[self.cont][1]
+            self.rect.x,self.rect.y = self.x * TILESIZE,self.y * TILESIZE
+            self.cont = self.cont + 1
+
+        print(self.rect.x, self.rect.y)
+        print(self.game.player.x, self.game.player.y)
+        # for paso in self.path:
+        # print(paso)
 
     def update(self):
         self.move()
-
-
-class EnemyPathFinding(pg.sprite.Sprite):
-    def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.walls
-        pg.sprite.Sprite.__init__(self, self.groups)
-        self.game = game
-        self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(BLUE)
-        self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
-        self.rect.x = x * TILESIZE
-        self.rect.y = y * TILESIZE
-    def collide_with_walls(self, dx=0, dy=0):
-        for wall in self.game.walls:
-            if wall.x == self.x + dx and wall.y == self.y + dy:
-                return True
-        return False
 
 
 class Wall(pg.sprite.Sprite):

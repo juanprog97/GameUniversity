@@ -1,10 +1,12 @@
 from opciones import *
+import heapq
+import numpy as np
 
 def heuristic(a, b):
     return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
 
-def astar(array, start, goal):
-
+def astar(start, goal):
+    array = np.array(MAPA)
     neighbors = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
 
     close_set = set()
