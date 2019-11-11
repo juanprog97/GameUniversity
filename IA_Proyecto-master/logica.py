@@ -1,9 +1,7 @@
 from opciones import *
 import heapq
-<<<<<<< HEAD
-=======
+
 import numpy as np
->>>>>>> d2733d744c7dee3a180627ff39a6a9028fac692f
 
 def heuristic(a, b):
     return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)

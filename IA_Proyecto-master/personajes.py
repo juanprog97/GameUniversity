@@ -62,18 +62,20 @@ class Enemy(pg.sprite.Sprite):
         if self.tempx != self.game.player.x or self.tempy != self.game.player.y:
             self.cont = 0
             self.tempx, self.tempy = self.game.player.x, self.game.player.y
-            self.path = astar((self.x, self.y), (self.game.player.x, self.game.player.y))
-            self.path = self.path + [(self.x, self.y)]
-            self.path = self.path[::-1]
+            tmp = astar((self.x, self.y), (self.game.player.x, self.game.player.y))
+            if(tmp != False):
+                self.path = tmp
+                print(self.path)
+                self.path = self.path + [(self.x, self.y)]
+                self.path = self.path[::-1]
         elif self.path and self.cont < len(self.path):
             self.x, self.y = self.path[self.cont][0], self.path[self.cont][1]
             self.rect.x,self.rect.y = self.x * TILESIZE,self.y * TILESIZE
             self.cont = self.cont + 1
 
-        print(self.rect.x, self.rect.y)
+       # print(self.rect.x, self.rect.y)
         print(self.game.player.x, self.game.player.y)
         # for paso in self.path:
-        # print(paso)
 
     def update(self):
         self.move()
