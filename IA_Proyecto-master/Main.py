@@ -32,8 +32,6 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'E':
                     Enemy(self,col,row)
-                if tile == 'J':
-                    EnemyPathFinding(self,col,row)
 
         self.camera = Camera(self.map.width, self.map.height)
 
