@@ -7,19 +7,25 @@ def heuristic(a, b):
     return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
 
 def astar(start, goal):
+    
     array = np.array(MAPA)
+   # print(array)
+    print("erda2")
+    print(start,goal)
     neighbors = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
 
     close_set = set()
     came_from = {}
     gscore = {start:0}
     fscore = {start:heuristic(start, goal)}
+    print("erda")
+    print((fscore[start], start))
     oheap = []
-
+    
     heapq.heappush(oheap, (fscore[start], start))
     
     while oheap:
-
+        
         current = heapq.heappop(oheap)[1]
 
         if current == goal:
@@ -52,5 +58,5 @@ def astar(start, goal):
                 gscore[neighbor] = tentative_g_score
                 fscore[neighbor] = tentative_g_score + heuristic(neighbor, goal)
                 heapq.heappush(oheap, (fscore[neighbor], neighbor))
-                
+    print(start, goal)            
     return False

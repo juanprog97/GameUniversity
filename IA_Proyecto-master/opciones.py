@@ -1,4 +1,4 @@
-MAPA = [[0 for i in range(32)] for i in range(24)]
+MAPA = [[0 for i in range(32)] for i in range(32)]
 
 # define some colors (R, G, B)
 WHITE = (255, 255, 255)

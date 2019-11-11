@@ -22,10 +22,10 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
-        
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
+                    print(row,col)
                     MAPA[row][col] = 1
                     Wall(self, col, row)
                 if tile == 'P':
@@ -34,7 +34,8 @@ class Game:
                     Enemy(self,col,row)
 
         self.camera = Camera(self.map.width, self.map.height)
-
+    
+        
     def run(self):
         # game loop - set self.playing = False to end the game
         self.playing = True
