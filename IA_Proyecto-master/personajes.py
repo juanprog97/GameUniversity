@@ -52,6 +52,7 @@ class Enemy(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
+        self.blo = y
         self.tempx, self.tempy = -1, -1
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
@@ -63,7 +64,7 @@ class Enemy(pg.sprite.Sprite):
 
     def move(self):
         
-        if self.tempx != self.game.player.x or self.tempy != self.game.player.y:
+        if (self.tempx != self.game.player.x or self.tempy != self.game.player.y) and(self.game.player.y >= self.blo-5 and self.game.player.y <= self.blo+5 ):
             self.cont = 0
             self.tempx, self.tempy = self.game.player.x, self.game.player.y
             tmp = astar((self.x, self.y), (self.game.player.x, self.game.player.y))

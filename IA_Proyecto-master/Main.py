@@ -32,7 +32,7 @@ class Game:
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'E':
-                    self.enemy = Enemy(self,col,row)
+                    Enemy(self,col,row)
 
         self.camera = Camera(self.map.width, self.map.height)
     
@@ -53,7 +53,7 @@ class Game:
     def update(self):
         # update portion of the game loop
         #self.enemy.update()
-        t = threading.Thread(target=self.enemy.update)
+        t = threading.Thread(target=self.enemies.update)
         t.start()
         self.player.update()
         self.camera.update(self.player)
