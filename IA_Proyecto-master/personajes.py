@@ -1,7 +1,7 @@
 import pygame as pg
 from opciones import *
 from logica import *
-
+import time
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -44,7 +44,7 @@ class Player(pg.sprite.Sprite):
 
 class Enemy(pg.sprite.Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.enemies
+        self.groups = game.enemies
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
@@ -58,28 +58,37 @@ class Enemy(pg.sprite.Sprite):
         self.path = []
         self.cont = 0
 
+
+
+
     def move(self):
+        
         if self.tempx != self.game.player.x or self.tempy != self.game.player.y:
             self.cont = 0
             self.tempx, self.tempy = self.game.player.x, self.game.player.y
             tmp = astar((self.x, self.y), (self.game.player.x, self.game.player.y))
+            
             if(tmp != False):
                 self.path = tmp
                 print(self.path)
                 self.path = self.path + [(self.x, self.y)]
                 self.path = self.path[::-1]
+            
         elif self.path and self.cont < len(self.path):
             self.x, self.y = self.path[self.cont][0], self.path[self.cont][1]
+            
             self.rect.x,self.rect.y = self.x * TILESIZE,self.y * TILESIZE
             self.cont = self.cont + 1
+            
 
        # print(self.rect.x, self.rect.y)
         print(self.game.player.x, self.game.player.y)
         # for paso in self.path:
+        
 
     def update(self):
         self.move()
-
+        
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):

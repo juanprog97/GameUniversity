@@ -1,4 +1,5 @@
 from opciones import *
+import threading
 import heapq
 
 import numpy as np

@@ -4,6 +4,7 @@ from os import path
 from opciones import *
 from personajes import *
 from archivoMapa import *
+import threading
 
 class Game:
     def __init__(self):
@@ -31,7 +32,7 @@ class Game:
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'E':
-                    Enemy(self,col,row)
+                    self.enemy = Enemy(self,col,row)
 
         self.camera = Camera(self.map.width, self.map.height)
     
@@ -51,7 +52,10 @@ class Game:
 
     def update(self):
         # update portion of the game loop
-        self.all_sprites.update()
+        #self.enemy.update()
+        t = threading.Thread(target=self.enemy.update)
+        t.start()
+        self.player.update()
         self.camera.update(self.player)
 
     def draw_grid(self):
@@ -60,11 +64,18 @@ class Game:
         for y in range(0, HEIGHT, TILESIZE):
             pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
 
+    def draw_enemies(self):
+         
+         for sprite in self.enemies:
+            self.screen.blit(sprite.image, self.camera.apply(sprite))
+            
     def draw(self):
         self.screen.fill(BGCOLOR)
         self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+        t = threading.Thread(target=self.draw_enemies)
+        t.start()
         pg.display.flip()
 
     def events(self):
