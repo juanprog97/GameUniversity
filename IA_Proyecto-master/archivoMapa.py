@@ -12,7 +12,15 @@ class Map:
         self.tileheight = len(self.data)
         self.width = self.tilewidth * TILESIZE
         self.height = self.tileheight * TILESIZE
-
+    # def load_image(filename, transparent=False):
+    #     try: image = pygame.image.load(filename)
+    #     except pygame.error as message:
+    #             raise SystemExit(message)
+    #     image = image.convert()
+    #     if transparent:
+    #             color = image.get_at((0,0))
+    #             image.set_colorkey(color, RLEACCEL)
+    #     return image
 class Camera:
     def __init__(self, width, height):
         self.camera = pg.Rect(0, 0, width, height)

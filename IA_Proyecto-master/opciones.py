@@ -1,4 +1,4 @@
-MAPA = [[0 for i in range(32)] for i in range(32)]
+MAPA = [[0 for i in range(81)] for i in range(81)]
 
 # define some colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -14,7 +14,7 @@ BLUE = (0, 0, 255)
 WIDTH = 720   # 16 * 64 or 32 * 32 or 64 * 16
 HEIGHT = 480  # 16 * 48 or 32 * 24 or 64 * 12
 FPS = 15
-TITLE = "Tilemap Demo"
+TITLE = "Javeriana University Game"
 BGCOLOR = DARKGREY
 
 TILESIZE = 32

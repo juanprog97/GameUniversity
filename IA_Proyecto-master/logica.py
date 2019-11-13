@@ -11,16 +11,16 @@ def astar(start, goal):
     
     array = np.array(MAPA)
    # print(array)
-    print("erda2")
-    print(start,goal)
+   # print("erda2")
+    #print(start,goal)
     neighbors = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
 
     close_set = set()
     came_from = {}
     gscore = {start:0}
     fscore = {start:heuristic(start, goal)}
-    print("erda")
-    print((fscore[start], start))
+   # print("erda")
+   # print((fscore[start], start))
     oheap = []
     
     heapq.heappush(oheap, (fscore[start], start))
@@ -59,5 +59,5 @@ def astar(start, goal):
                 gscore[neighbor] = tentative_g_score
                 fscore[neighbor] = tentative_g_score + heuristic(neighbor, goal)
                 heapq.heappush(oheap, (fscore[neighbor], neighbor))
-    print(start, goal)            
+    #print(start, goal)            
     return False

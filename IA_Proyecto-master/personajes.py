@@ -13,7 +13,8 @@ class Player(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-
+    def xandy(self):
+        return self.x, self.y
     def get_keys(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_LEFT] or keys[pg.K_a]:
@@ -71,7 +72,7 @@ class Enemy(pg.sprite.Sprite):
             
             if(tmp != False):
                 self.path = tmp
-                print(self.path)
+              #  print(self.path)
                 self.path = self.path + [(self.x, self.y)]
                 self.path = self.path[::-1]
             
@@ -83,13 +84,17 @@ class Enemy(pg.sprite.Sprite):
             
 
        # print(self.rect.x, self.rect.y)
-        print(self.game.player.x, self.game.player.y)
+       # print(self.game.player.x, self.game.player.y)
         # for paso in self.path:
         
-
+    def kill(self):
+        if((self.x == self.game.player.x) and (self.y == self.game.player.y)):
+            return True
+        else:
+            return False
     def update(self):
         self.move()
-        
+       
 
 class Wall(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -97,7 +102,22 @@ class Wall(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(GREEN)
+        self.image.fill(GREEN) #verificar si se pueden cambiar los colores de los edificios y los colores del muro
+        #O hacer una clase edificio
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class WalllETR(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.walls
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(BLUE) #verificar si se pueden cambiar los colores de los edificios y los colores del muro
+        #O hacer una clase edificio
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
