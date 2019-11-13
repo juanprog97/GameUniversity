@@ -40,6 +40,7 @@ class Game:
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
+        self.punt = pg.sprite.Group()
         self.puntaje = 0
         
         self.enemies = pg.sprite.Group()
@@ -57,6 +58,8 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'E':
                     Enemy(self,col,row)
+                if tile == 'O':
+                    Point(self,col,row)
 
         self.camera = Camera(self.map.width, self.map.height)
         
@@ -101,6 +104,10 @@ class Game:
          for sprite in self.enemies:
             if(sprite.kill() == True):
                 self.playing = False
+    def drawpo(self):
+        for sprite in self.punt:
+            sprite.reor()
+            self.screen.blit(sprite.image, self.camera.apply(sprite))
     def draw(self):
         self.screen.fill(BGCOLOR)
         x,y = self.player.xandy()
@@ -112,6 +119,13 @@ class Game:
         self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+    
+        for sprite in self.punt:
+            self.screen.blit(sprite.image, self.camera.apply(sprite))
+            put = sprite.goal()
+        if(put == True):
+            self.puntaje +=1
+            self.drawpo()
         t = threading.Thread(target=self.draw_enemies)
         t.start()
         pg.display.flip()

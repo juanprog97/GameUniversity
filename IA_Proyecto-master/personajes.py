@@ -2,6 +2,7 @@ import pygame as pg
 from opciones import *
 from logica import *
 import time
+import random
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -123,3 +124,35 @@ class WalllETR(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+class Point(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.punt
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(VIOLET) #verificar si se pueden cambiar los colores de los edificios y los colores del muro
+        #O hacer una clase edificio
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+    def reor(self):
+        while True:
+            x =int((random.random() * 81)-1)
+            y = int((random.random() * 81)-1)
+            if(MAPA[x][y] != '1' and MAPA[x][y] != 'X' ):
+                break
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+    def goal(self):
+        if(self.game.player.x == self.x and self.game.player.y == self.y):
+            return True
+        else:
+            return False
+
+
