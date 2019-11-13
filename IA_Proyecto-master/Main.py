@@ -82,8 +82,9 @@ class Game:
     def update(self):
         # update portion of the game loop
         #self.enemy.update()
-        self.state = self.enemies.update()
-        print(self.state)
+        t = threading.Thread(target=self.enemies.update)
+        t.start()
+
         self.player.update()
         #self.state = self.enemies.kill()
         self.camera.update(self.player)

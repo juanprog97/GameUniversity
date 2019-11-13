@@ -13,7 +13,7 @@ VIOLET = (128,0,128)
 # game settings
 WIDTH = 720   # 16 * 64 or 32 * 32 or 64 * 16
 HEIGHT = 480  # 16 * 48 or 32 * 24 or 64 * 12
-FPS = 15
+FPS = 20
 TITLE = "Javeriana University Game"
 BGCOLOR = DARKGREY
 
